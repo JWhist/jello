@@ -1,5 +1,6 @@
 import React from "react";
 import { Route } from "react-router-dom";
+import Board from './dashboard/Board';
 import TopNav from "./shared/TopNav";
 import BoardsDashboardContainer from "./dashboard/BoardsDashboardContainer";
 import UISection from "./ui/UISection";
@@ -19,6 +20,7 @@ const Application = () => {
     <div>
       <TopNav />
       <Route path="/" exact component={BoardsDashboardContainer} />
+      <Route path="/boards/:id" component={Board} />
       <Route path="/ui" exact component={UISection} />
       <Route path="/ui/allBoards" component={AllBoards} />
       <Route path="/ui/cardArchived" component={CardArchived} />
