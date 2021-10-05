@@ -1,3 +1,3 @@
-const {check} = require('express-validator');
+const { check } = require("express-validator");
 
-exports.validateBoard = [check("board.title").not().isEmpty()];
+exports.validateBoard = check("board.title").not().isEmpty();
