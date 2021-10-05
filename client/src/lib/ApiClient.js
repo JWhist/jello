@@ -32,6 +32,13 @@ const apiClient = {
       .then(unwrapData)
       .then(callback)
       .catch(logError);
+  },
+  fetchBoardById: function(id, callback) {
+    return axios
+      .get(routes.FETCH_BOARD_URL + `/${id}`)
+      .then(unwrapData)
+      .then(callback)
+      .catch(logError);
   }
 };
 

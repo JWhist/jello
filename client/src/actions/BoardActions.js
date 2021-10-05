@@ -17,6 +17,10 @@ export function createBoardSuccess(board) {
   return { type: types.CREATE_BOARD_SUCCESS, board: board };
 }
 
+function fetchBoardByIdSuccess(board) {
+  return { type: types.FETCH_BOARD_BY_ID_SUCCESS, board}
+}
+
 export function fetchBoards() {
   return function(dispatch) {
     dispatch(fetchBoardsRequest());
@@ -35,4 +39,12 @@ export function createBoard(board, callback) {
       }
     });
   };
+}
+
+export function fetchBoardById(id) {
+  return function(dispatch) {
+    apiClient.fetchBoardById(id, (response) => {
+      dispatch(fetchBoardByIdSuccess(response));
+    })
+  }
 }
