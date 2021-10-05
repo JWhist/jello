@@ -13,7 +13,7 @@ const ListSchema = new Schema({
   },
   position: Number,
   cards: [{
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Card'
   }]
 });

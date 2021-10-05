@@ -6,8 +6,8 @@ const CardSchema = new Schema({
   dueDate: Date,
   labels: [String],
   description: String,
-  listId: String,
-  boardId: String,
+  listId: Schema.Types.ObjectId,
+  boardId: Schema.Types.ObjectId,
   position: Number,
   commentsCount: Number
 });
