@@ -13,10 +13,9 @@ const BoardSchema = new Schema({
   },
   updatedAt: {
     type: Date,
-    default: Date.now
   },
   lists: [{
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'List'
   }]
 })
