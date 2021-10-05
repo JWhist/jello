@@ -1,15 +1,5 @@
 const mongoose = require('mongoose');
-const CardSchema = require('./card');
 const Schema = mongoose.Schema;
-
-/*
-      "title": "CSS",
-      "boardId": 1,
-      "createdAt": "2020-10-04T06:53:39.302Z",
-      "updatedAt": "2020-10-04T06:53:39.302Z",
-      "position": 65535.0,
-      "cards": [
-*/
 
 const ListSchema = new Schema({
   title: String,
@@ -23,7 +13,10 @@ const ListSchema = new Schema({
     default: Date.now
   },
   position: Number,
-  cards: [CardSchema]
+  cards: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'CardSchema'
+  }]
 });
 
 const List = mongoose.model('List', ListSchema);
