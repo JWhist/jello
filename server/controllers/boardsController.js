@@ -27,5 +27,17 @@ const createBoard = (req, res, next) => {
   }
 };
 
+const getBoardById = (req, res, next) => {
+  const id = req.params.id;
+  Board.findById(id)
+    .then(board => {
+      res.json({ board });
+    })
+    .catch((err) => {
+      return next(new HttpError("Failed to get board", 500));
+    });
+}
+
 exports.getBoards = getBoards;
 exports.createBoard = createBoard;
+exports.getBoardById = getBoardById;
