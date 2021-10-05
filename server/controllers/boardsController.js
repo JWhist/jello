@@ -27,9 +27,10 @@ const createBoard = (req, res, next) => {
   }
 };
 
-const getBoardById = (req, res, next) => {
+const getBoard = (req, res, next) => {
   const id = req.params.id;
   Board.findById(id)
+    .populate('lists')
     .then(board => {
       res.json({ board });
     })
@@ -40,4 +41,4 @@ const getBoardById = (req, res, next) => {
 
 exports.getBoards = getBoards;
 exports.createBoard = createBoard;
-exports.getBoardById = getBoardById;
+exports.getBoard = getBoard;

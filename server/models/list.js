@@ -15,7 +15,7 @@ const ListSchema = new Schema({
   position: Number,
   cards: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'CardSchema'
+    ref: 'Card'
   }]
 });
 
