@@ -1,7 +1,11 @@
 export default function cards(state = [], action) {
   switch (action.type) {
     case "FETCH_BOARD_BY_ID_SUCCESS": {
-      return action.board.lists.cards;
+      const newState = [];
+      action.board.lists.forEach((list) => {
+        newState.push(...list.cards);
+      });
+      return newState;
     }
     default:
       return state;

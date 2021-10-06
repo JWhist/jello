@@ -1,10 +1,10 @@
 import React from "react";
 import ListContainer from "./ListContainer";
 
-const Main = ({ lists }) => {
+const Main = () => {
   return (
     <main>
-      <ListContainer lists={lists} />
+      <ListContainer />
     </main>
   );
 };

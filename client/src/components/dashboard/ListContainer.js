@@ -1,7 +1,10 @@
 import ExistingLists from "./ExistingLists";
 import AddList from "./AddList";
+import { useSelector } from "react-redux";
 
-const ListContainer = ({ lists }) => {
+const ListContainer = () => {
+  const lists = useSelector((store) => store.lists);
+
   return (
     <div id="list-container" className="list-container">
       <ExistingLists lists={lists} />

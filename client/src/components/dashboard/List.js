@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import CardContainer from "./CardContainer";
 
 const List = ({ id }) => {
-  const allCards = useSelector((state) => state.cards);
+  const cards = useSelector((state) => state.cards);
 
   return (
     <div className="list-wrapper">
@@ -20,7 +20,7 @@ const List = ({ id }) => {
               <span>...</span>
             </div>
           </div>
-          <CardContainer cards={allCards.filter((c) => (c.listId = id))} />
+          <CardContainer cards={cards} />
           <div className="add-dropdown add-bottom">
             <div className="card">
               <div className="card-info"></div>
