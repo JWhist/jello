@@ -15,22 +15,13 @@ const createList = (req, res, next) => {
 
   List.create(list)
     .then((list) => {
-      List.find({ _id: list._id }, "title _id createdAt updatedAt").then(
-        ([list]) => {
-          console.log(list);
-          console.log(boardId);
-          addListToBoard(list, boardId);
-          res.json({ list });
-        }
-      );
+      console.log(list);
+      Board.findOneAndUpdate({ _id: list.BoardId }, { lists: list._id });
+      res.json(list);
     })
     .catch((err) =>
       next(new HttpError("Creating board failed, please try again", 500))
     );
-};
-
-const addListToBoard = (list, boardId) => {
-  Board.findOneAndUpdate({ _id: boardId }, { lists: list });
 };
 
 exports.createList = createList;
