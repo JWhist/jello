@@ -6,21 +6,19 @@ import { fetchBoardById } from "../../actions/BoardActions";
 import { useDispatch, useSelector } from "react-redux";
 
 const Board = () => {
-  const [lists, setLists] = useState([]);
+  const [board, setBoard] = useState();
   const { id } = useParams();
   const allLists = useSelector((state) => state.lists);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchBoardById(id));
-    setLists(allLists.filter((l) => l.boardId === id));
-    console.log(lists);
   }, [dispatch, id]);
 
   return (
     <>
-      <Header title={"title"} />
-      <Main />
+      <Header title={"hi"} />
+      <Main lists={allLists.filter((l) => l.boardId === id)} />
     </>
   );
 };
