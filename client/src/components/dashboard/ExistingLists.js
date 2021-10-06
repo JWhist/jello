@@ -1,10 +1,13 @@
 import List from "./List";
+import { useSelector } from "react-redux";
 
-const ExistingLists = ({ lists }) => {
+const ExistingLists = () => {
+  const lists = useSelector((store) => store.lists);
+
   return (
     <div id="existing-lists" className="existing-lists">
-      {lists.map((l) => {
-        return <List key={l._id} id={l._id} />;
+      {lists.map((list) => {
+        return <List key={list._id} list={list} />;
       })}
     </div>
   );
