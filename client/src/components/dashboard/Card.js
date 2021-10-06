@@ -14,9 +14,7 @@ const Card = ({ card }) => {
 
         <div className="card-icons">
           {card.dueDate ? (
-            <i className="clock-icon sm-icon overdue-recent completed">
-              {card.dueDate}
-            </i>
+            <i className="clock-icon sm-icon overdue-recent completed"></i>
           ) : null}
 
           {card.description ? (
