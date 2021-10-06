@@ -1,4 +1,4 @@
-export default function lists(state = [], action) {
+export default function cards(state = [], action) {
   switch (action.type) {
     case "FETCH_BOARD_BY_ID_SUCCESS": {
       return state;
