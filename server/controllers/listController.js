@@ -15,7 +15,6 @@ const createList = (req, res, next) => {
 
   List.create(newList)
     .then(async (list) => {
-      console.log(list);
       let board = await Board.findById(list.boardId);
       let newLists = [...board.lists, list];
       Board.findByIdAndUpdate(list.boardId, { lists: newLists }, () =>
@@ -27,4 +26,31 @@ const createList = (req, res, next) => {
     );
 };
 
+const updateList = (req, res, next) => {
+  const id = req.params.id;
+  const updateTitle = req.body.title;
+  const updatePosition = req.body.position;
+
+  if (!updateTitle && !updatePosition) {
+    res.status(422).json({ error: "Title or position are required" })
+  }
+
+  List.findById(id)
+    .then(list => {
+      const updateList = {
+        title: updateTitle || list.title,
+        position: updatePosition || list.position
+      }
+
+      List.findByIdAndUpdate(id, updateList, { new: true })
+        .then(list => {
+          res.json(list);
+        });
+    })
+    .catch(err => {
+      next(new HttpError("List not found", 404))
+    });
+}
+
 exports.createList = createList;
+exports.updateList = updateList;
