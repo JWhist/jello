@@ -9,16 +9,36 @@ export function createListSuccess(list) {
   return { type: types.CREATE_LIST_SUCCESS, list: list };
 }
 
+export function editListRequest() {
+  return { type: types.EDIT_LIST_REQUEST };
+}
+
+export function editListSuccess(list) {
+  return { type: types.EDIT_LIST_SUCCESS, list: list };
+}
+
 export function createList(list, callback) {
   return (dispatch) => {
     dispatch(createListRequest());
     apiClient.createList(list, (newList) => {
       dispatch(createListSuccess(newList));
-      console.log("from list action, ", callback)
 
       if (callback) {
         callback();
       }
     });
   };
+}
+
+export function editList(list, callback) {
+  return (dispatch) => {
+    dispatch(editListRequest());
+    apiClient.editList(list, (newList) => {
+      dispatch(editListSuccess(newList));
+
+      if (callback) {
+        callback();
+      }
+    })
+  }
 }
