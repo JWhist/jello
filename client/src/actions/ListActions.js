@@ -30,10 +30,10 @@ export function createList(list, callback) {
   };
 }
 
-export function editList(list, callback) {
+export function editList(id, list, callback) {
   return (dispatch) => {
     dispatch(editListRequest());
-    apiClient.editList(list, (newList) => {
+    apiClient.editList(id, list, (newList) => {
       dispatch(editListSuccess(newList));
 
       if (callback) {

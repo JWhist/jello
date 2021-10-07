@@ -11,6 +11,16 @@ export default function lists(state = [], action) {
       const { cards, ...listwithoutcards } = action.list
       return state.concat(listwithoutcards);
     }
+    case "EDIT_LIST_SUCCESS": {
+      return state.map(list => {
+        if (list._id === action.list_id) {
+          const { cards, ...listwithoutcards } = action.list
+          return listwithoutcards;
+        }
+
+        return list;
+      })
+    }
     default:
       return state;
   }

@@ -47,9 +47,9 @@ const apiClient = {
       .then(callback)
       .catch(logError);
   },
-  editList: function(list, callback) {
+  editList: function(id, list, callback) {
     return axios
-      .put(routes.EDIT_LIST_URL + `/${list._id}`, list)
+      .put(routes.EDIT_LIST_URL + `/${id}`, list)
       .then(unwrapData)
       .then(callback)
       .catch(logError);

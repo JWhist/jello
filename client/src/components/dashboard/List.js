@@ -1,16 +1,21 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { editList } from "../../actions/ListActions";
 import CardContainer from "./CardContainer";
 
 const List = ({ list }) => {
   const [ editVisible, setEditVisible ] = useState(false);
   const [ title, setTitle ] = useState(list.title);
+  const dispatch = useDispatch();
 
   const toggleEditVisible = () => {
     setEditVisible(!editVisible);
   }
 
   const handleSubmit = (e) => {
-    console.log(e.code);
+    if (e.code === "Enter" || e.code === undefined) {
+      dispatch(editList(list._id, { title }, toggleEditVisible));
+    }
   }
 
   return (
@@ -28,7 +33,7 @@ const List = ({ list }) => {
                   onKeyPress={handleSubmit}
                   value={title}
                 />
-              : <p onClick={toggleEditVisible} className="list-title">{list.title}</p>
+              : <p onClick={toggleEditVisible} className="list-title">{title}</p>
             }
           </div>
           <div className="add-dropdown add-top">
