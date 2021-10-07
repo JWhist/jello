@@ -7,6 +7,10 @@ export default function lists(state = [], action) {
         return listwithoutcards;
       });
     }
+    case "CREATE_LIST_SUCCESS": {
+      const { cards, ...listwithoutcards } = action.list
+      return state.concat(listwithoutcards);
+    }
     default:
       return state;
   }
