@@ -18,6 +18,7 @@ const List = ({ list }) => {
     }
   }
 
+
   return (
     <div className="list-wrapper">
       <div className="list-background">
