@@ -14,12 +14,12 @@ const createList = (req, res, next) => {
   const newList = { boardId: boardId, title: req.body.list.title };
 
   List.create(newList)
-    .then((list) => {
+    .then(async (list) => {
       console.log(list);
-      Board.findOneAndUpdate(
-        { _id: ObjectId(list.BoardId) },
-        { lists: list._id },
-        () => res.json(list)
+      let board = await Board.findById(list.boardId);
+      let newLists = [...board.lists, list];
+      Board.findByIdAndUpdate(list.boardId, { lists: newLists }, () =>
+        res.json(list)
       );
     })
     .catch((err) =>
