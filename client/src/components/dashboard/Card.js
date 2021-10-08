@@ -1,4 +1,5 @@
-const Card = ({ card }) => {
+import { useState } from "react";
+const Card = ({ card, showModal }) => {
   return (
     <div className="card-background">
       <div className="card ">
@@ -9,7 +10,7 @@ const Card = ({ card }) => {
             return <div className={`card-label ${label} colorblindable`}></div>;
           })}
 
-          <p>{card.title}</p>
+          <p onClick={() => showModal(card._id)}>{card.title}</p>
         </div>
 
         <div className="card-icons">

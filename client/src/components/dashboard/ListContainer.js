@@ -1,10 +1,10 @@
 import ExistingLists from "./ExistingLists";
 import AddList from "./AddList";
 
-const ListContainer = () => {
+const ListContainer = ({ showModal }) => {
   return (
     <div id="list-container" className="list-container">
-      <ExistingLists />
+      <ExistingLists showModal={showModal} />
       <AddList />
     </div>
   );

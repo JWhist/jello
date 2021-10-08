@@ -19,41 +19,49 @@ axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 axios.defaults.headers.common["Accept"] = "application/json";
 
 const apiClient = {
-  getBoards: function(callback) {
+  getBoards: function (callback) {
     return axios
       .get(routes.BOARDS_INDEX_URL)
       .then(unwrapData)
       .then(callback)
       .catch(logError);
   },
-  createBoard: function(board, callback) {
+  createBoard: function (board, callback) {
     return axios
-      .post(routes.CREATE_BOARD_URL, {board})
+      .post(routes.CREATE_BOARD_URL, { board })
       .then(unwrapData)
       .then(callback)
       .catch(logError);
   },
-  fetchBoardById: function(id, callback) {
+  fetchBoardById: function (id, callback) {
     return axios
       .get(routes.FETCH_BOARD_URL + `/${id}`)
       .then(unwrapData)
       .then(callback)
       .catch(logError);
   },
-  createList: function(list, callback) {
+  createList: function (list, callback) {
     return axios
       .post(routes.CREATE_LIST_URL, list)
       .then(unwrapData)
       .then(callback)
       .catch(logError);
   },
-  editList: function(id, list, callback) {
+  editList: function (id, list, callback) {
     return axios
       .put(routes.EDIT_LIST_URL + `/${id}`, list)
       .then(unwrapData)
       .then(callback)
       .catch(logError);
-  }
+  },
+  createCard: function (card, callback) {
+    console.log(card);
+    return axios
+      .post(routes.CREATE_CARD_URL, card)
+      .then(unwrapData)
+      .then(callback)
+      .catch(logError);
+  },
 };
 
 export default apiClient;
