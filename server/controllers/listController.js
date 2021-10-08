@@ -1,7 +1,6 @@
 const List = require("../models/list");
 const Board = require("../models/board");
 const HttpError = require("../models/httpError");
-const { ObjectId } = require("mongodb");
 
 const createList = (req, res, next) => {
   const boardId = req.body.boardId;
@@ -51,5 +50,18 @@ const updateList = (req, res, next) => {
     });
 };
 
+const addCardToList = (req, res, next) => {
+  console.log(req.body);
+  const listId = req.body.card.listId;
+  List.findByIdAndUpdate(listId, {
+    $addToSet: { cards: req.body.card._id },
+  })
+    .then(() => next())
+    .catch((err) => {
+      next(new HttpError("Adding card to list failed", 500));
+    });
+};
+
 exports.createList = createList;
 exports.updateList = updateList;
+exports.addCardToList = addCardToList;

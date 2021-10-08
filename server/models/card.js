@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const CardSchema = new Schema({
@@ -9,9 +9,11 @@ const CardSchema = new Schema({
   listId: Schema.Types.ObjectId,
   boardId: Schema.Types.ObjectId,
   position: Number,
-  commentsCount: Number
+  commentsCount: Number,
+  actions: [Schema.Types.ObjectId],
+  comments: [Schema.Types.ObjectId],
 });
 
-const Card = mongoose.model('Card', CardSchema);
+const Card = mongoose.model("Card", CardSchema);
 
 module.exports = Card;
