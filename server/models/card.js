@@ -10,6 +10,8 @@ const CardSchema = new Schema({
   boardId: Schema.Types.ObjectId,
   position: Number,
   commentsCount: Number,
+  completed: Boolean,
+  archived: Boolean,
   actions: [Schema.Types.ObjectId],
   comments: [Schema.Types.ObjectId],
 });
