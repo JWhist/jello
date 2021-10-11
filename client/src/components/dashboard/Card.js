@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 const Card = ({ card, showModal }) => {
   return (
@@ -7,7 +8,7 @@ const Card = ({ card, showModal }) => {
 
         <div className="card-info">
           {card.labels.map((label) => {
-            return <div className={`card-label ${label} colorblindable`}></div>;
+            return <div key={card._id + label} className={`card-label ${label} colorblindable`}></div>;
           })}
 
           <p onClick={() => showModal(card._id)}>{card.title}</p>

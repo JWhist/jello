@@ -1,7 +1,7 @@
 import React from "react";
 import ListContainer from "./ListContainer";
 import { useState } from "react";
-import Modal from "./Modal";
+import ModalContainer from "./ModalContainer";
 
 const Main = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -13,7 +13,7 @@ const Main = () => {
   };
 
   return modalOpen ? (
-    <Modal showModal={showModal} modalCard={modalCard} />
+    <ModalContainer showModal={showModal} modalCard={modalCard} />
   ) : (
     <main>
       <ListContainer showModal={showModal} />
