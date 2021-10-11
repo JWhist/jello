@@ -1,6 +1,12 @@
 import React from "react";
-import { useState } from "react";
-const Card = ({ card, showModal }) => {
+import { useHistory } from "react-router-dom";
+
+const Card = ({ card }) => {
+  const history = useHistory();
+  const handleClick = () => {
+    history.push(`/cards/${card._id}`)
+  }
+
   return (
     <div className="card-background">
       <div className="card ">
@@ -10,8 +16,7 @@ const Card = ({ card, showModal }) => {
           {card.labels.map((label) => {
             return <div key={card._id + label} className={`card-label ${label} colorblindable`}></div>;
           })}
-
-          <p onClick={() => showModal(card._id)}>{card.title}</p>
+          <p onClick={handleClick}>{card.title}</p>
         </div>
 
         <div className="card-icons">

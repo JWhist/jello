@@ -21,6 +21,20 @@ export default function lists(state = [], action) {
         return list;
       })
     }
+    case "FETCH_LIST_SUCCESS": {
+      const newState = [...state];
+      let changed = false
+      for (let i=0; i < newState.length; i++) {
+        if (action.list._id === newState[i]._id) {
+          changed = true
+        }
+      }
+      if (!changed) {
+        newState.push(action.list)
+      }
+
+      return newState;
+    }
     default:
       return state;
   }

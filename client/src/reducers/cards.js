@@ -10,6 +10,20 @@ export default function cards(state = [], action) {
     case "CREATE_CARD_SUCCESS": {
       return state.concat(action.card);
     }
+    case "FETCH_CARD_SUCCESS": {
+      const newState = [...state];
+      let changed = false
+      for (let i=0; i < newState.length; i++) {
+        if (action.card._id === newState[i]._id) {
+          changed = true
+        }
+      }
+      if (!changed) {
+        newState.push(action.card)
+      }
+
+      return newState;
+    }
     default:
       return state;
   }

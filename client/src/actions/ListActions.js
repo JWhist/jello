@@ -17,6 +17,14 @@ export function editListSuccess(list) {
   return { type: types.EDIT_LIST_SUCCESS, list: list };
 }
 
+export function fetchListRequest() {
+  return { type: types.FETCH_LIST_REQUEST }
+}
+
+export function fetchListSuccess(list) {
+  return { type: types.FETCH_LIST_SUCCESS, list: list }
+}
+
 export function createList(list, callback) {
   return (dispatch) => {
     dispatch(createListRequest());
@@ -40,5 +48,18 @@ export function editList(id, list, callback) {
         callback();
       }
     })
+  }
+}
+
+export function fetchList(id, callback) {
+  return (dispatch) => {
+    dispatch(fetchListRequest());
+    apiClient.fetchList(id, (list => {
+      dispatch(fetchListSuccess(list))
+
+      if (callback) {
+        callback();
+      }
+    }))
   }
 }

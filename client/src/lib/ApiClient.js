@@ -54,14 +54,27 @@ const apiClient = {
       .then(callback)
       .catch(logError);
   },
+  fetchList: function (id, callback) {
+    return axios
+      .get(routes.FETCH_LIST_URL + `/${id}`)
+      .then(unwrapData)
+      .then(callback)
+      .catch(logError);
+  },
   createCard: function (card, callback) {
-    console.log(card);
     return axios
       .post(routes.CREATE_CARD_URL, card)
       .then(unwrapData)
       .then(callback)
       .catch(logError);
   },
+  fetchCard: function (id, callback) {
+    return axios
+      .get(routes.FETCH_CARD_URL + `/${id}`)
+      .then(unwrapData)
+      .then(callback)
+      .catch(logError)
+  }
 };
 
 export default apiClient;
