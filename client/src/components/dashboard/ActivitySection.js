@@ -1,3 +1,5 @@
+import React from "react";
+
 const ActivitySection = () => {
   return (
     <li className="activity-section">

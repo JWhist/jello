@@ -1,4 +1,5 @@
-const EditDescriptionForm = () => {
+import React from "react";
+const EditDescriptionForm = ({ card }) => {
   return (
     <form className="description">
       <p>Description</p>
@@ -6,7 +7,7 @@ const EditDescriptionForm = () => {
         Edit
       </span>
       <p className="textarea-overlay">
-        Cards have a symbol to indicate if they contain a description.
+        {card.description}
       </p>
       <p id="description-edit-options" className="hidden">
         You have unsaved edits on this field.{" "}

@@ -10,10 +10,10 @@ const ModalSection = ({ card }) => {
       <ul className="modal-outer-list">
         <li className="details-section">
           <DetailsList card={card} />
-          <EditDescriptionForm />
+          <EditDescriptionForm card={card} />
         </li>
-        <CommentSection />
-        <ActivitySection />
+        <CommentSection card={card} />
+        <ActivitySection card={card} />
       </ul>
     </section>
   )

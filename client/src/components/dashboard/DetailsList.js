@@ -1,3 +1,4 @@
+import React from "react";
 import DueDateSection from "./DueDateSection";
 
 const DetailsList = ({ card }) => {
@@ -5,24 +6,13 @@ const DetailsList = ({ card }) => {
     <ul className="modal-details-list">
       <li className="labels-section">
         <h3>Labels</h3>
-        <div className="member-container">
-          <div className="green label colorblindable"></div>
-        </div>
-        <div className="member-container">
-          <div className="yellow label colorblindable"></div>
-        </div>
-        <div className="member-container">
-          <div className="orange label colorblindable"></div>
-        </div>
-        <div className="member-container">
-          <div className="blue label colorblindable"></div>
-        </div>
-        <div className="member-container">
-          <div className="purple label colorblindable"></div>
-        </div>
-        <div className="member-container">
-          <div className="red label colorblindable"></div>
-        </div>
+        {card.labels.map(label => {
+          return (
+          <div key={card._id + label} className="member-container">
+            <div className={label + " label colorblindable"}></div>
+          </div>
+          )
+        })}
         <div className="member-container">
           <i className="plus-icon sm-icon"></i>
         </div>

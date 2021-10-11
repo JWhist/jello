@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CommentSection = () => {
+const CommentSection = ({ card }) => {
   return (
     <li className="comment-section">
       <h2 className="comment-icon icon">Add Comment</h2>
