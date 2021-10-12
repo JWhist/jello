@@ -20,7 +20,6 @@ router.get("/cards/:id", cardController.getCard);
 
 router.put(
   "/cards/:id",
-  cardController.validateCardId,
   // actionController.generateActions,
   cardController.updateCard,
   cardController.sendCard

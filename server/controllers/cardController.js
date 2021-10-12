@@ -1,7 +1,16 @@
 const { validationResult } = require("express-validator");
 const Card = require("../models/card");
 const HttpError = require("../models/httpError");
-const { addCardToList } = require("./listController");
+const ALLOWED_ATTRIBUTES = [
+  "title",
+  "listId",
+  "position",
+  "description",
+  "archived",
+  "dueDate",
+  "completed",
+  "labels",
+];
 
 const getCard = (req, res, next) => {
   const id = req.params.id;
@@ -56,6 +65,35 @@ const addCommentToCard = (req, res, next) => {
     });
 };
 
+const updateCard = (req, res, next) => {
+  const cardId = req.params.id;
+  const { ...updates } = { ...req.body.card };
+
+  if (!validAttributes(updates)) {
+    return next(new HttpError("Unprocessable entity", 422));
+  }
+
+  Card.findById(cardId)
+    .then((card) => {
+      Card.findByIdAndUpdate(card._id, updates, { new: true }).then((card) => {
+        req.body.card = card;
+        next();
+      });
+    })
+    .catch((err) => {
+      return next(new HttpError(`No such card id ${cardId}`, 404));
+    });
+};
+
+const validAttributes = (updates) => {
+  return (
+    Object.keys(updates).every((key) => ALLOWED_ATTRIBUTES.includes(key)) &&
+    Object.keys(updates).length > 0 &&
+    ((updates.title && updates.title.trim() !== "") ||
+      !updates.hasOwnProperty("title"))
+  );
+};
+
 const validateCardId = (req, res, next) => {
   const cardId = req.body.cardId;
   Card.findById(cardId)
@@ -70,3 +108,4 @@ exports.createCard = createCard;
 exports.sendCard = sendCard;
 exports.addCommentToCard = addCommentToCard;
 exports.validateCardId = validateCardId;
+exports.updateCard = updateCard;
