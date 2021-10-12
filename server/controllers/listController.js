@@ -51,7 +51,6 @@ const updateList = (req, res, next) => {
 };
 
 const addCardToList = (req, res, next) => {
-  console.log(req.body);
   const listId = req.body.card.listId;
   List.findByIdAndUpdate(listId, {
     $addToSet: { cards: req.body.card._id },

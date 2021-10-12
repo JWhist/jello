@@ -21,9 +21,9 @@ const createBoard = (req, res, next) => {
           (board) => res.json({ board })
         );
       })
-      .catch((err) =>
-        next(new HttpError("Creating board failed, please try again", 500))
-      );
+      .catch((err) => {
+        next(new HttpError("Creating board failed, please try again", 500));
+      });
   } else {
     return next(new HttpError("The input field is empty.", 404));
   }
@@ -32,15 +32,15 @@ const createBoard = (req, res, next) => {
 const getBoard = (req, res, next) => {
   const id = req.params.id;
   Board.findById(id)
-    .populate('lists')
-    .populate({ path: 'lists', populate: { path: 'cards' }})
-    .then(board => {
+    .populate("lists")
+    .populate({ path: "lists", populate: { path: "cards" } })
+    .then((board) => {
       res.json(board);
     })
     .catch((err) => {
       return next(new HttpError("Board not found", 404));
     });
-}
+};
 
 exports.getBoards = getBoards;
 exports.createBoard = createBoard;

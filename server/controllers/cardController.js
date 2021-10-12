@@ -1,6 +1,7 @@
+const { validationResult } = require("express-validator");
 const Card = require("../models/card");
 const HttpError = require("../models/httpError");
-// const { createAction } = require("./actionController");
+const { addCardToList } = require("./listController");
 
 const getCard = (req, res, next) => {
   const id = req.params.id;
@@ -33,7 +34,6 @@ const createCard = (req, res, next) => {
   Card.create(newCard)
     .then((card) => {
       req.body.card = card;
-      console.log(req.body.card);
     })
     .then(() => next())
     .catch((err) => {
@@ -45,6 +45,28 @@ const sendCard = (req, res, next) => {
   res.json(req.body.card);
 };
 
+const addCommentToCard = (req, res, next) => {
+  const cardId = req.body.cardId;
+  Card.findByIdAndUpdate(cardId, {
+    $addToSet: { comments: req.body._id },
+  })
+    .then(() => next())
+    .catch((err) => {
+      next(new HttpError("Adding comment to card failed", 500));
+    });
+};
+
+const validateCardId = (req, res, next) => {
+  const cardId = req.body.cardId;
+  Card.findById(cardId)
+    .then(() => next())
+    .catch((err) => {
+      return next(new HttpError("Card not found", 404));
+    });
+};
+
 exports.getCard = getCard;
 exports.createCard = createCard;
 exports.sendCard = sendCard;
+exports.addCommentToCard = addCommentToCard;
+exports.validateCardId = validateCardId;

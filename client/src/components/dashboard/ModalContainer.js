@@ -1,22 +1,26 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
+import { fetchCard } from "../../actions/CardActions";
 import ModalAside from "./ModalAside";
 import ModalHeader from "./ModalHeader";
 import ModalSection from "./ModalSection";
 
 const ModalContainer = () => {
+  const [card, setCard] = useState(null);
   const { id } = useParams();
   const history = useHistory();
-  const card = useSelector(state => {
-    return state.cards.find(card => card._id === id)
-  });
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCard(id, (card) => setCard(card)));
+  }, [dispatch]);
 
   const handleClick = () => {
     history.push(`/boards/${card.boardId}`);
-  }
+  };
 
-  return (
+  return card ? (
     <div id="modal-container">
       <div className="screen"></div>
       <div id="modal">
@@ -26,6 +30,8 @@ const ModalContainer = () => {
         <ModalAside />
       </div>
     </div>
+  ) : (
+    <></>
   );
 };
 

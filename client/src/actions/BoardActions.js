@@ -41,10 +41,14 @@ export function createBoard(board, callback) {
   };
 }
 
-export function fetchBoardById(id) {
+export function fetchBoardById(id, callback) {
   return function (dispatch) {
     apiClient.fetchBoardById(id, (response) => {
       dispatch(fetchBoardByIdSuccess(response));
+
+      if (callback) {
+        callback(response);
+      }
     });
   };
 }

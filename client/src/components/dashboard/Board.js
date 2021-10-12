@@ -1,27 +1,42 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import Header from "./Header";
 import Main from "./Main";
 import { fetchBoardById } from "../../actions/BoardActions";
 import { useDispatch, useSelector } from "react-redux";
 
 const Board = () => {
-  const [board, setBoard] = useState({});
+  const location = useLocation().pathname.match(new RegExp(/\/(.*)\//))[1];
+  const [board, setBoard] = useState(null);
   const { id } = useParams();
+  const cards = useSelector((state) => state.cards);
 
-  const curBoard = useSelector((store) => {
-    return store.boards.filter((b) => b._id === id);
-  });
   const dispatch = useDispatch();
+  let boardId;
+  let card;
+
+  if (location === "boards") {
+    boardId = id;
+  } else {
+    card = cards.find((c) => c._id === id);
+    if (card) {
+      boardId = card.boardId;
+    }
+  }
 
   useEffect(() => {
-    dispatch(fetchBoardById(id));
-    setBoard({ ...curBoard[0] });
-  }, [dispatch, id]);
+    if (boardId) {
+      dispatch(
+        fetchBoardById(boardId, (board) => {
+          setBoard(board);
+        })
+      );
+    }
+  }, [dispatch, boardId]);
 
   return (
     <>
-      <Header title={board.title} />
+      {board ? <Header title={board.title} /> : null}
       <Main />
     </>
   );

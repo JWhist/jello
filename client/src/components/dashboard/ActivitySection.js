@@ -22,8 +22,12 @@ const ActivitySection = () => {
           </small>
           <div className="comment">
             <label>
-              <textarea required="" rows="1" value='The activities have not been implemented yet.'>
-              </textarea>
+              <textarea
+                required=""
+                rows="1"
+                value="The activities have not been implemented yet."
+                onChange={() => {}}
+              ></textarea>
               <div>
                 <a className="light-button card-icon sm-icon"></a>
                 <a className="light-button smiley-icon sm-icon"></a>
@@ -35,6 +39,7 @@ const ActivitySection = () => {
                   type="submit"
                   className="button not-implemented"
                   value="Save"
+                  onChange={() => {}}
                 />
                 <i className="x-icon icon"></i>
               </div>
@@ -46,9 +51,8 @@ const ActivitySection = () => {
             <div className="card-member small-size">VR</div>
           </div>
           <p>
-            <span className="member-name">Victor Reyes</span> changed
-            the background of this board{" "}
-            <small>yesterday at 4:53 PM</small>
+            <span className="member-name">Victor Reyes</span> changed the
+            background of this board <small>yesterday at 4:53 PM</small>
           </p>
         </li>
         <li className="activity-comment">
@@ -65,9 +69,12 @@ const ActivitySection = () => {
           </small>
           <div className="comment">
             <label>
-              <textarea required="" rows="1">
-                Example of a comment.
-              </textarea>
+              <textarea
+                required=""
+                rows="1"
+                value="Example of a comment."
+                onChange={() => {}}
+              ></textarea>
               <div>
                 <a className="light-button card-icon sm-icon"></a>
                 <a className="light-button smiley-icon sm-icon"></a>
@@ -79,6 +86,7 @@ const ActivitySection = () => {
                   type="submit"
                   className="button not-implemented"
                   value="Save"
+                  onChange={() => {}}
                 />
                 <i className="x-icon icon"></i>
               </div>
@@ -87,7 +95,7 @@ const ActivitySection = () => {
         </li>
       </ul>
     </li>
-  )
-}
+  );
+};
 
 export default ActivitySection;

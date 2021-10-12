@@ -1,17 +1,23 @@
-import React from 'react'
+import React from "react";
 
 const DueDateSection = ({ card }) => {
-  const date = new Date(card.dueDate)
+  const date = new Date(card.dueDate);
 
   const formatDate = () => {
-    const options = { month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true }
-    const timestamp = Intl.DateTimeFormat('en-US', options).format(date);
-    return timestamp.replace(',', ' at');
-  }
+    const options = {
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    };
+    const timestamp = Intl.DateTimeFormat("en-US", options).format(date);
+    return timestamp.replace(",", " at");
+  };
 
   const isPastDue = () => {
     return Date.parse(date) - Date.now() > 0;
-  }
+  };
 
   return (
     <li className="due-date-section">
@@ -22,13 +28,14 @@ const DueDateSection = ({ card }) => {
           type="checkbox"
           className="checkbox"
           checked=""
+          onChange={() => {}}
         />
 
         {formatDate()}
-        <span>{isPastDue() ? '(past due)' : ''}</span>
+        <span>{isPastDue() ? "(past due)" : ""}</span>
       </div>
     </li>
-  )
-}
+  );
+};
 
 export default DueDateSection;
