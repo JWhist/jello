@@ -49,12 +49,17 @@ class DueDate extends React.Component {
     });
     this.picker.show();
   }
+  handleCloseClick(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    this.props.handleDueDate();
+  }
   render() {
     return (
       <div className="popover due-date">
         <header>
-          <span>Change due date</span>
-          <a href="#" className="icon-sm icon-close"></a>
+          <span>Change due date {this.props.card.DueDate}</span >
+          <a href="#" className="icon-sm icon-close" onClick={this.handleCloseClick.bind(this)}></a>
         </header>
         <div className="content">
           <form>

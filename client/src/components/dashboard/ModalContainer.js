@@ -16,7 +16,7 @@ const ModalContainer = () => {
 
   useEffect(() => {
     dispatch(fetchCard(id, (card) => setCard(card)));
-  }, [dispatch, card]);
+  }, [dispatch]);
 
   const handleClick = () => {
     history.push(`/boards/${card.boardId}`);
@@ -27,9 +27,11 @@ const ModalContainer = () => {
     setDueDateOpen(!dueDateOpen)
   }
 
+  console.log(dueDateOpen)
+
   return card ? (
     <div id="modal-container">
-      {dueDateOpen ? <DueDate /> : null}
+      {dueDateOpen ? <DueDate card={card} handleDueDate={handleDueDate} /> : <></>}
       <div className="screen"></div>
       <div id="modal">
         <i onClick={handleClick} className="x-icon icon close-modal"></i>
