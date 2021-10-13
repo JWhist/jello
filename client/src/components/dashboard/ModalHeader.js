@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchList } from "../../actions/ListActions";
-import { fetchBoardById } from "../../actions/BoardActions";
+import { updateCard } from "../../actions/CardActions";
 
 const ModalHeader = ({ card }) => {
   const list = useSelector((s) => s.lists.find((l) => l._id === card.listId));
+  const dispatch = useDispatch();
+  const [title, setTitle] = useState(card.title)
 
   return list ? (
     <header>
@@ -12,8 +13,9 @@ const ModalHeader = ({ card }) => {
       <textarea
         className="list-title"
         style={{ height: "45px" }}
-        value={card.title}
-        onChange={() => {}}
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        onBlur={() => dispatch(updateCard(card._id, { card: { title }}))}
       ></textarea>
       <p>
         in list <a className="link">{list.title}</a>

@@ -1,6 +1,19 @@
 import React from 'react';
+import { updateCard } from '../../actions/CardActions';
+import { useDispatch } from 'react-redux';
 
-const ModalAside = () => {
+const ModalAside = ({card}) => {
+  const dispatch = useDispatch();
+  const handleArchived = (isArchived) => {
+    const update = {
+      card: {
+        archived: isArchived
+      }
+    }
+
+    dispatch(updateCard(card._id, update));
+  }
+
   return (
     <aside className="modal-buttons">
       <h2>Add</h2>
@@ -34,9 +47,21 @@ const ModalAside = () => {
           <i className="check-icon sm-icon"></i>
         </li>
         <hr />
-        <li className="archive-button">
-          <i className="file-icon sm-icon "></i>Archive
-        </li>
+        {!card.archived ? (
+          <li className="archive-button" onClick={() => handleArchived(true)}>
+            <i className="file-icon sm-icon "></i>Archive
+          </li>
+        ) : (
+          <>
+            <li className="unarchive-button" onClick={() => handleArchived(false)}>
+              <i className="send-icon sm-icon"></i>Send to board
+            </li>
+            <li className="red-button">
+              <i className="minus-icon sm-icon"></i>Delete
+            </li>
+          </>
+        )
+        }
       </ul>
       <ul className="light-list">
         <li className="not-implemented">Share and more...</li>

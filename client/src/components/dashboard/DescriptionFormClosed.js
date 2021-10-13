@@ -1,9 +1,11 @@
 import React from "react";
-const EditDescriptionForm = ({ card }) => {
+
+const DescriptionFormClosed = ({ card, handleToggleForm }) => {
+
   return (
     <form className="description">
       <p>Description</p>
-      <span id="description-edit" className="link">
+      <span id="description-edit" className="link" onClick={handleToggleForm}>
         Edit
       </span>
       <p className="textarea-overlay">
@@ -18,4 +20,4 @@ const EditDescriptionForm = ({ card }) => {
   )
 }
 
-export default EditDescriptionForm;
+export default DescriptionFormClosed;

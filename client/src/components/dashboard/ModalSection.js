@@ -2,7 +2,7 @@ import React from 'react';
 import ActivitySection from './ActivitySection';
 import CommentSection from './CommentSection';
 import DetailsList from './DetailsList';
-import EditDescriptionForm from './EditDescriptionForm';
+import DescriptionContainer from './DescriptionContainer';
 
 const ModalSection = ({ card }) => {
   return (
@@ -10,7 +10,7 @@ const ModalSection = ({ card }) => {
       <ul className="modal-outer-list">
         <li className="details-section">
           <DetailsList card={card} />
-          <EditDescriptionForm card={card} />
+          <DescriptionContainer card={card} />
         </li>
         <CommentSection card={card} />
         <ActivitySection card={card} />

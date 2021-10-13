@@ -5,6 +5,7 @@ import { fetchCard } from "../../actions/CardActions";
 import ModalAside from "./ModalAside";
 import ModalHeader from "./ModalHeader";
 import ModalSection from "./ModalSection";
+import ArchivedBanner from "./ArchivedBanner";
 
 const ModalContainer = () => {
   const [card, setCard] = useState(null);
@@ -14,7 +15,7 @@ const ModalContainer = () => {
 
   useEffect(() => {
     dispatch(fetchCard(id, (card) => setCard(card)));
-  }, [dispatch]);
+  }, [dispatch, card]);
 
   const handleClick = () => {
     history.push(`/boards/${card.boardId}`);
@@ -25,9 +26,10 @@ const ModalContainer = () => {
       <div className="screen"></div>
       <div id="modal">
         <i onClick={handleClick} className="x-icon icon close-modal"></i>
+        {card.archived ? < ArchivedBanner /> : <></> }
         <ModalHeader card={card} />
         <ModalSection card={card} />
-        <ModalAside />
+        <ModalAside card={card} />
       </div>
     </div>
   ) : (
