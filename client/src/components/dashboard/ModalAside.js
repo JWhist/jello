@@ -2,7 +2,7 @@ import React from 'react';
 import { updateCard } from '../../actions/CardActions';
 import { useDispatch } from 'react-redux';
 
-const ModalAside = ({card}) => {
+const ModalAside = ({card, handleDueDate}) => {
   const dispatch = useDispatch();
   const handleArchived = (isArchived) => {
     const update = {
@@ -27,7 +27,7 @@ const ModalAside = ({card}) => {
         <li className="checklist-button">
           <i className="checklist-icon sm-icon"></i>Checklist
         </li>
-        <li className="date-button not-implemented">
+        <li className="date-button" onClick={handleDueDate}>
           <i className="clock-icon sm-icon"></i>Due Date
         </li>
         <li className="attachment-button not-implemented">

@@ -6,6 +6,7 @@ import ModalAside from "./ModalAside";
 import ModalHeader from "./ModalHeader";
 import ModalSection from "./ModalSection";
 import ArchivedBanner from "./ArchivedBanner";
+import DueDate from "./DueDate";
 
 const ModalContainer = () => {
   const [card, setCard] = useState(null);
@@ -21,15 +22,21 @@ const ModalContainer = () => {
     history.push(`/boards/${card.boardId}`);
   };
 
+  const [dueDateOpen, setDueDateOpen] = useState(false)
+  const handleDueDate = () => {
+    setDueDateOpen(!dueDateOpen)
+  }
+
   return card ? (
     <div id="modal-container">
+      {dueDateOpen ? <DueDate /> : null}
       <div className="screen"></div>
       <div id="modal">
         <i onClick={handleClick} className="x-icon icon close-modal"></i>
         {card.archived ? < ArchivedBanner /> : <></> }
         <ModalHeader card={card} />
         <ModalSection card={card} />
-        <ModalAside card={card} />
+        <ModalAside card={card} handleDueDate={handleDueDate} />
       </div>
     </div>
   ) : (
