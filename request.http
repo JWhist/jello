@@ -1,0 +1,9 @@
+post http://localhost:3000/api/comments HTTP/1.1
+content-type: application/json
+
+{
+  "cardId": "615c8c3872cbb907bcc98a8b",
+  "comment": {
+    "text": "From VS Code 2"
+  }
+}

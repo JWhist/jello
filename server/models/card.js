@@ -13,8 +13,14 @@ const CardSchema = new Schema(
     commentsCount: Number,
     completed: Boolean,
     archived: Boolean,
-    actions: [Schema.Types.ObjectId],
-    comments: [Schema.Types.ObjectId],
+    actions: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Action'
+    }],
+    comments: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Comment'
+    }],
   },
   { timestamps: true }
 );

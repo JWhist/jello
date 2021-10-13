@@ -1,6 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { createComment } from '../../actions/CommentAction'
 
 const CommentSection = ({ card }) => {
+  const [text, setText] = useState('')
+  const dispatch = useDispatch();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const comment = {
+      cardId: card._id,
+      comment: {
+        text
+      }
+    }
+    dispatch(createComment(comment, () => {
+      setText('')
+    }))
+  }
   return (
     <li className="comment-section">
       <h2 className="comment-icon icon">Add Comment</h2>
@@ -14,6 +31,8 @@ const CommentSection = ({ card }) => {
               required=""
               rows="1"
               placeholder="Write a comment..."
+              value={text}
+              onChange={(e) => setText(e.target.value)}
             ></textarea>
             <div>
               <a className="light-button card-icon sm-icon"></a>
@@ -24,8 +43,9 @@ const CommentSection = ({ card }) => {
             <div>
               <input
                 type="submit"
-                className="button not-implemented"
+                className="button"
                 value="Save"
+                onClick={handleSubmit}
               />
             </div>
           </label>
