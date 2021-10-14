@@ -89,6 +89,7 @@ class DueDate extends React.Component {
 
       return "";
     }).split(' ')
+
     date.setHours(hour)
     date.setMinutes(min)
     const updates = { card: { dueDate: date } }

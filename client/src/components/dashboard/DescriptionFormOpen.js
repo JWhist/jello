@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateCard } from "../../actions/CardActions";
 
-const DescriptionFormOpen = ({ card, handleToggleForm, desc, updateDesc }) => {
+const DescriptionFormOpen = ({ card, handleToggleForm}) => {
   const dispatch = useDispatch();
-  const [description, setDescription] = useState(desc);
+  const [description, setDescription] = useState(card.description);
 
   const handleClick = () => {
     const updates = {
@@ -15,7 +15,6 @@ const DescriptionFormOpen = ({ card, handleToggleForm, desc, updateDesc }) => {
     dispatch(
       updateCard(card._id, updates, () => {
         handleToggleForm();
-        updateDesc(description);
       })
     );
   };
@@ -28,7 +27,7 @@ const DescriptionFormOpen = ({ card, handleToggleForm, desc, updateDesc }) => {
         rows="1"
         autoFocus
         onChange={(e) => setDescription(e.target.value)}
-        defaultValue={desc}
+        defaultValue={card.description}
       >
       </textarea>
       <div>

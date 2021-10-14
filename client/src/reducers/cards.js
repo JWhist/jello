@@ -25,13 +25,16 @@ export default function cards(state = [], action) {
       return newState;
     }
     case "UPDATE_CARD_SUCCESS": {
-      return state.map(card => {
+      const newState = state.map(card => {
         if (card._id === action.card._id) {
           return action.card;
         }
 
         return card
       })
+
+      console.log(newState);
+      return newState
     }
     default:
       return state;

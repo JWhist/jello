@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { fetchCard, updateCard } from "../../actions/CardActions";
+import { updateCard } from "../../actions/CardActions";
 import ModalAside from "./ModalAside";
 import ModalHeader from "./ModalHeader";
 import ModalSection from "./ModalSection";
@@ -14,6 +14,7 @@ const ModalContainer = () => {
   const { id } = useParams();
   const card = useSelector(state => state.cards.find(card => card._id === id))
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const handleClick = () => {
     history.push(`/boards/${card.boardId}`);
