@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { fetchCard } from "../../actions/CardActions";
+import { fetchCard, updateCard } from "../../actions/CardActions";
 import ModalAside from "./ModalAside";
 import ModalHeader from "./ModalHeader";
 import ModalSection from "./ModalSection";
@@ -28,14 +28,14 @@ const ModalContainer = () => {
     setPopover({ visible: false, type: null, attachedTo: null})
   }
 
-  const handleDueDateSubmit = () => {
-
+  const handleDueDateSubmit = (updates) => {
+    console.log(updates);
+    dispatch(updateCard(card._id, updates, handleClosePopover))
   }
 
   const popoverChildren = useCallback(() => {
     const type = popover.type;
     const visible = popover.visible;
-      console.log('from modal container', popover)
     if (visible && type) {
       switch (type) {
         case "due-date":

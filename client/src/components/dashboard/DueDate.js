@@ -5,22 +5,21 @@ import moment from "moment";
 class DueDate extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props.card.dueDate)
     this.state = {
       dueTime: this.formatTime(props.card.dueDate),
-      //dueDate: props.card.dueDate,
+      dueDate: props.card.dueDate,
     };
   }
 
   componentDidMount() {
-    //const date = this.state.dueDate ? this.state.dueDate : null;
+    const date = this.state.dueDate ? this.state.dueDate : null;
     this.picker = new Pikaday({
       field: document.querySelector(".datepicker-select-date input"),
       bound: false,
       container: document.getElementById("calendar-widget"),
       firstDay: 1,
       yearRange: 10,
-      defaultDate: false//date
+      defaultDate: date
         ? moment(date).toDate()
         : moment().add(1, "day").toDate(),
       setDefaultDate: true,
@@ -82,7 +81,19 @@ class DueDate extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const date = this.picker.getDate();
+    const date = new Date(this.picker.getDate());
+    const [hour, min] = this.state.dueTime.replace(/[^0-9]/g, (str) => {
+      if (str === ':') {
+        return " ";
+      }
+
+      return "";
+    }).split(' ')
+    date.setHours(hour)
+    date.setMinutes(min)
+    const updates = { card: { dueDate: date } }
+    this.props.onSubmit(updates);
+
     console.log(date)
   }
 
@@ -112,14 +123,12 @@ class DueDate extends React.Component {
                   <input
                     type="text"
                     placeholder="Enter time"
-                    defaultValue={this.state.dueTime}
-
-                    //value={this.state.dueTime}
-                    //onChange={(e) => {
-                    //  this.setState({
-                    //    dueTime: e.target.value,
-                    //  });
-                    //}}
+                    value={this.state.dueTime}
+                    onChange={(e) => {
+                      this.setState({
+                        dueTime: e.target.value,
+                      });
+                    }}
                   />
                 </label>
               </div>
