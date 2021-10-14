@@ -28,8 +28,8 @@ const DescriptionFormOpen = ({ card, handleToggleForm, desc, updateDesc }) => {
         rows="1"
         autoFocus
         onChange={(e) => setDescription(e.target.value)}
+        defaultValue={desc}
       >
-        {desc}
       </textarea>
       <div>
         <div className="button" value="Save" onClick={handleClick}>

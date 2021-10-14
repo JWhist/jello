@@ -2,7 +2,7 @@ import React from 'react';
 import { updateCard } from '../../actions/CardActions';
 import { useDispatch } from 'react-redux';
 
-const ModalAside = ({card, handleDueDate}) => {
+const ModalAside = ({card, setPopover}) => {
   const dispatch = useDispatch();
   const handleArchived = (isArchived) => {
     const update = {
@@ -27,7 +27,16 @@ const ModalAside = ({card, handleDueDate}) => {
         <li className="checklist-button">
           <i className="checklist-icon sm-icon"></i>Checklist
         </li>
-        <li className="date-button" onClick={handleDueDate}>
+        <li className="date-button" onClick={(e) => {
+            const newPopover = {
+              visible: true,
+              type: "due-date",
+              attachedTo: e.target
+            }
+
+            setPopover(newPopover)
+          }
+        }>
           <i className="clock-icon sm-icon"></i>Due Date
         </li>
         <li className="attachment-button not-implemented">

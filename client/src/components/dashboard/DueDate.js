@@ -5,21 +5,22 @@ import moment from "moment";
 class DueDate extends React.Component {
   constructor(props) {
     super(props);
+    console.log(props.card.dueDate)
     this.state = {
-      dueTime: props.card.dueDate,
-      dueDate: props.card.dueDate,
+      dueTime: this.formatTime(props.card.dueDate),
+      //dueDate: props.card.dueDate,
     };
   }
 
   componentDidMount() {
-    const date = this.state.dueDate ? this.state.dueDate : null;
+    //const date = this.state.dueDate ? this.state.dueDate : null;
     this.picker = new Pikaday({
       field: document.querySelector(".datepicker-select-date input"),
       bound: false,
       container: document.getElementById("calendar-widget"),
       firstDay: 1,
       yearRange: 10,
-      defaultDate: date
+      defaultDate: false//date
         ? moment(date).toDate()
         : moment().add(1, "day").toDate(),
       setDefaultDate: true,
@@ -65,33 +66,39 @@ class DueDate extends React.Component {
     this.props.handleDueDate();
   }
 
-  formatTime(time) {
-    time = new Date(time);
+  formatTime(fullDate) {
+    if (!fullDate) return "";
+
+    const time = new Date(fullDate);
     const options = {
       hour: "numeric",
       minute: "numeric",
       hour12: true,
     };
+
     const timestamp = Intl.DateTimeFormat("en-US", options).format(time);
-    console.log(timestamp);
     return timestamp.replace(",", "");
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+    const date = this.picker.getDate();
+    console.log(date)
+  }
+
   render() {
-    console.log(this.state.dueDate);
-    console.log(this.state.dueTime);
     return (
-      <div className="popover due-date">
+      <div>
         <header>
           <span>Change due date</span>
           <a
             href="#"
             className="icon-sm icon-close"
-            onClick={this.handleCloseClick.bind(this)}
+            onClick={this.props.onClose}
           ></a>
         </header>
         <div className="content">
-          <form>
+          <form onSubmit={this.handleSubmit.bind(this)}>
             <div className="datepicker-select">
               <div className="datepicker-select-date">
                 <label>
@@ -105,14 +112,14 @@ class DueDate extends React.Component {
                   <input
                     type="text"
                     placeholder="Enter time"
-                    value={this.state.dueTime}
-                    onChange={(e) => {
-                      console.log(this.formatTime(e.target.value));
-                      // console.log(this.state.dueTime);
-                      this.setState({
-                        dueTime: e.target.value,
-                      });
-                    }}
+                    defaultValue={this.state.dueTime}
+
+                    //value={this.state.dueTime}
+                    //onChange={(e) => {
+                    //  this.setState({
+                    //    dueTime: e.target.value,
+                    //  });
+                    //}}
                   />
                 </label>
               </div>
