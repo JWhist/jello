@@ -136,7 +136,7 @@ class DueDate extends React.Component {
             <button className="button" type="submit">
               Save
             </button>
-            <button className="button red-button" type="reset">
+            <button className="button red-button" type="reset" onClick={this.props.onRemove}>
               Remove
             </button>
           </form>

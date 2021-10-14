@@ -1,7 +1,7 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { updateCard } from "../../actions/CardActions";
+import { fetchCard, updateCard } from "../../actions/CardActions";
 import ModalAside from "./ModalAside";
 import ModalHeader from "./ModalHeader";
 import ModalSection from "./ModalSection";
@@ -16,6 +16,12 @@ const ModalContainer = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (!card) {
+      dispatch(fetchCard(id));
+    }
+  }, [dispatch, id])
+
   const handleClick = () => {
     history.push(`/boards/${card.boardId}`);
   };
@@ -25,8 +31,11 @@ const ModalContainer = () => {
   }
 
   const handleDueDateSubmit = (updates) => {
-    console.log(updates);
     dispatch(updateCard(card._id, updates, handleClosePopover))
+  }
+
+  const handleDueDateRemove = () => {
+    dispatch(updateCard(card._id, { card: {dueDate: null} }, handleClosePopover));
   }
 
   const popoverChildren = useCallback(() => {
@@ -41,7 +50,7 @@ const ModalContainer = () => {
               dueDate={card.dueDate}
                onClose={handleClosePopover}
                onSubmit={handleDueDateSubmit}
-              // onRemove={handleDueDateRemove}
+               onRemove={handleDueDateRemove}
             />
           );
         // case "labels":
