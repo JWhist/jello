@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { fetchCard, updateCard } from "../../actions/CardActions";
 import ModalAside from "./ModalAside";
@@ -10,15 +10,10 @@ import DueDate from "./DueDate";
 import Popover from "../shared/Popover";
 
 const ModalContainer = () => {
-  const [card, setCard] = useState(null);
   const [popover, setPopover] = useState({ visible: false, type: null, attachedTo: null })
   const { id } = useParams();
+  const card = useSelector(state => state.cards.find(card => card._id === id))
   const history = useHistory();
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchCard(id, (card) => setCard(card)));
-  }, [dispatch, id]);
 
   const handleClick = () => {
     history.push(`/boards/${card.boardId}`);

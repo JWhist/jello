@@ -93,8 +93,6 @@ class DueDate extends React.Component {
     date.setMinutes(min)
     const updates = { card: { dueDate: date } }
     this.props.onSubmit(updates);
-
-    console.log(date)
   }
 
   render() {
