@@ -3,16 +3,25 @@ import Pikaday from "pikaday";
 import moment from "moment";
 
 class DueDate extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dueTime: props.card.dueDate,
+      dueDate: props.card.dueDate,
+    };
+  }
+
   componentDidMount() {
+    const date = this.state.dueDate ? this.state.dueDate : null;
     this.picker = new Pikaday({
       field: document.querySelector(".datepicker-select-date input"),
       bound: false,
       container: document.getElementById("calendar-widget"),
       firstDay: 1,
       yearRange: 10,
-      defaultDate: moment()
-        .add(1, "day")
-        .toDate(),
+      defaultDate: date
+        ? moment(date).toDate()
+        : moment().add(1, "day").toDate(),
       setDefaultDate: true,
       format: "M/D/YYYY",
       i18n: {
@@ -30,7 +39,7 @@ class DueDate extends React.Component {
           "September",
           "October",
           "November",
-          "December"
+          "December",
         ],
         weekdays: [
           "Sunday",
@@ -39,27 +48,47 @@ class DueDate extends React.Component {
           "Wednesday",
           "Thursday",
           "Friday",
-          "Saturday"
+          "Saturday",
         ],
-        weekdaysShort: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
+        weekdaysShort: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
       },
       toString(date, format) {
         return moment(date).format(format);
-      }
+      },
     });
     this.picker.show();
   }
+
   handleCloseClick(e) {
     e.preventDefault();
     e.stopPropagation();
     this.props.handleDueDate();
   }
+
+  formatTime(time) {
+    time = new Date(time);
+    const options = {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    };
+    const timestamp = Intl.DateTimeFormat("en-US", options).format(time);
+    console.log(timestamp);
+    return timestamp.replace(",", "");
+  }
+
   render() {
+    console.log(this.state.dueDate);
+    console.log(this.state.dueTime);
     return (
       <div className="popover due-date">
         <header>
-          <span>Change due date {this.props.card.DueDate}</span >
-          <a href="#" className="icon-sm icon-close" onClick={this.handleCloseClick.bind(this)}></a>
+          <span>Change due date</span>
+          <a
+            href="#"
+            className="icon-sm icon-close"
+            onClick={this.handleCloseClick.bind(this)}
+          ></a>
         </header>
         <div className="content">
           <form>
@@ -76,7 +105,14 @@ class DueDate extends React.Component {
                   <input
                     type="text"
                     placeholder="Enter time"
-                    value="12:00 PM"
+                    value={this.state.dueTime}
+                    onChange={(e) => {
+                      console.log(this.formatTime(e.target.value));
+                      // console.log(this.state.dueTime);
+                      this.setState({
+                        dueTime: e.target.value,
+                      });
+                    }}
                   />
                 </label>
               </div>

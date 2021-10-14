@@ -22,20 +22,22 @@ const ModalContainer = () => {
     history.push(`/boards/${card.boardId}`);
   };
 
-  const [dueDateOpen, setDueDateOpen] = useState(false)
+  const [dueDateOpen, setDueDateOpen] = useState(false);
   const handleDueDate = () => {
-    setDueDateOpen(!dueDateOpen)
-  }
-
-  console.log(dueDateOpen)
+    setDueDateOpen(!dueDateOpen);
+  };
 
   return card ? (
     <div id="modal-container">
-      {dueDateOpen ? <DueDate card={card} handleDueDate={handleDueDate} /> : <></>}
+      {dueDateOpen ? (
+        <DueDate card={card} handleDueDate={handleDueDate} />
+      ) : (
+        <></>
+      )}
       <div className="screen"></div>
       <div id="modal">
         <i onClick={handleClick} className="x-icon icon close-modal"></i>
-        {card.archived ? < ArchivedBanner /> : <></> }
+        {card.archived ? <ArchivedBanner /> : <></>}
         <ModalHeader card={card} />
         <ModalSection card={card} />
         <ModalAside card={card} handleDueDate={handleDueDate} />
