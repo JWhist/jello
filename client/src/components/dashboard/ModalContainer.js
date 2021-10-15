@@ -9,11 +9,18 @@ import ArchivedBanner from "./ArchivedBanner";
 import DueDate from "./DueDate";
 import Popover from "../shared/Popover";
 import LabelsForm from "./LabelsForm";
+import MoveCardForm from "./MoveCardForm";
 
 const ModalContainer = () => {
-  const [popover, setPopover] = useState({ visible: false, type: null, attachedTo: null })
+  const [popover, setPopover] = useState({
+    visible: false,
+    type: null,
+    attachedTo: null,
+  });
   const { id } = useParams();
-  const card = useSelector(state => state.cards.find(card => card._id === id))
+  const card = useSelector((state) =>
+    state.cards.find((card) => card._id === id)
+  );
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -21,7 +28,7 @@ const ModalContainer = () => {
     if (!card) {
       dispatch(fetchCard(id));
     }
-  }, [dispatch, id])
+  }, [dispatch, id]);
 
   const handleClick = () => {
     history.push(`/boards/${card.boardId}`);
@@ -29,24 +36,36 @@ const ModalContainer = () => {
 
   const handleClosePopover = (e) => {
     e.preventDefault();
-    setPopover({ visible: false, type: null, attachedTo: null})
-  }
+    setPopover({ visible: false, type: null, attachedTo: null });
+  };
 
   const handleDueDateSubmit = (updates) => {
-    dispatch(updateCard(card._id, updates, handleClosePopover))
-  }
+    dispatch(updateCard(card._id, updates, handleClosePopover));
+  };
 
   const handleDueDateRemove = () => {
-    dispatch(updateCard(card._id, { card: {dueDate: null} }, handleClosePopover));
-  }
+    dispatch(
+      updateCard(card._id, { card: { dueDate: null } }, handleClosePopover)
+    );
+  };
 
   const handleToggleLabel = (label) => {
+    console.log(card.labels, label);
+    let newLabels = [];
+
+    if (card.labels.includes(label)) {
+      newLabels = card.labels.filter((l) => l !== label);
+    } else {
+      newLabels = card.labels.concat(label);
+    }
     const updates = {
       card: {
-      }
-    }
+        labels: newLabels,
+      },
+    };
 
-  }
+    dispatch(updateCard(card._id, updates));
+  };
 
   const popoverChildren = useCallback(() => {
     const type = popover.type;
@@ -58,17 +77,17 @@ const ModalContainer = () => {
             <DueDate
               card={card}
               dueDate={card.dueDate}
-               onClose={handleClosePopover}
-               onSubmit={handleDueDateSubmit}
-               onRemove={handleDueDateRemove}
+              onClose={handleClosePopover}
+              onSubmit={handleDueDateSubmit}
+              onRemove={handleDueDateRemove}
             />
           );
         case "labels":
           return (
             <LabelsForm
-               selectedLabels={card.labels}
-               onClose={handleClosePopover}
-               onClickLabel={handleToggleLabel}
+              selectedLabels={card.labels}
+              onClose={handleClosePopover}
+              onClickLabel={handleToggleLabel}
             />
           );
         // case "copy-card":
@@ -79,14 +98,8 @@ const ModalContainer = () => {
         //       comments={state.comments}
         //     />
         //   );
-        // case "move-card":
-        //   return (
-        //     <MoveCardForm
-        //       onClose={handleClosePopover}
-        //       card={state.card}
-        //       comments={state.comments}
-        //     />
-        //   );
+        case "move-card":
+          return <MoveCardForm onClose={handleClosePopover} card={card} />;
         default:
           return null;
       }
@@ -99,7 +112,7 @@ const ModalContainer = () => {
     //state.card,
     popover.type,
     popover.visible,
-  //  state.comments,
+    //  state.comments,
   ]);
 
   return card ? (
@@ -114,7 +127,7 @@ const ModalContainer = () => {
           <ModalAside card={card} setPopover={setPopover} />
         </div>
       </div>
-     <Popover {...popover}>{popoverChildren()}</Popover>
+      <Popover {...popover}>{popoverChildren()}</Popover>
     </>
   ) : (
     <></>

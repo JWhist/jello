@@ -1,18 +1,18 @@
-import React from 'react';
-import { updateCard } from '../../actions/CardActions';
-import { useDispatch } from 'react-redux';
+import React from "react";
+import { updateCard } from "../../actions/CardActions";
+import { useDispatch } from "react-redux";
 
-const ModalAside = ({card, setPopover}) => {
+const ModalAside = ({ card, setPopover }) => {
   const dispatch = useDispatch();
   const handleArchived = (isArchived) => {
     const update = {
       card: {
-        archived: isArchived
-      }
-    }
+        archived: isArchived,
+      },
+    };
 
     dispatch(updateCard(card._id, update));
-  }
+  };
 
   return (
     <aside className="modal-buttons">
@@ -21,30 +21,35 @@ const ModalAside = ({card, setPopover}) => {
         <li className="member-button">
           <i className="person-icon sm-icon"></i>Members
         </li>
-        <li className="label-button" onClick={(e) => {
+        <li
+          className="label-button"
+          onClick={(e) => {
             const newPopover = {
               visible: true,
               type: "labels",
-              attachedTo: e.target
-            }
+              attachedTo: e.target,
+            };
 
-            setPopover(newPopover)
-          }}>
+            setPopover(newPopover);
+          }}
+        >
           <i className="label-icon sm-icon"></i>Labels
         </li>
         <li className="checklist-button">
           <i className="checklist-icon sm-icon"></i>Checklist
         </li>
-        <li className="date-button" onClick={(e) => {
+        <li
+          className="date-button"
+          onClick={(e) => {
             const newPopover = {
               visible: true,
               type: "due-date",
-              attachedTo: e.target
-            }
+              attachedTo: e.target,
+            };
 
-            setPopover(newPopover)
-          }
-        }>
+            setPopover(newPopover);
+          }}
+        >
           <i className="clock-icon sm-icon"></i>Due Date
         </li>
         <li className="attachment-button not-implemented">
@@ -53,7 +58,18 @@ const ModalAside = ({card, setPopover}) => {
       </ul>
       <h2>Actions</h2>
       <ul>
-        <li className="move-button">
+        <li
+          className="move-button"
+          onClick={(e) => {
+            const newPopover = {
+              visible: true,
+              type: "move-card",
+              attachedTo: e.target,
+            };
+
+            setPopover(newPopover);
+          }}
+        >
           <i className="forward-icon sm-icon"></i>Move
         </li>
         <li className="copy-button">
@@ -70,21 +86,23 @@ const ModalAside = ({card, setPopover}) => {
           </li>
         ) : (
           <>
-            <li className="unarchive-button" onClick={() => handleArchived(false)}>
+            <li
+              className="unarchive-button"
+              onClick={() => handleArchived(false)}
+            >
               <i className="send-icon sm-icon"></i>Send to board
             </li>
             <li className="red-button">
               <i className="minus-icon sm-icon"></i>Delete
             </li>
           </>
-        )
-        }
+        )}
       </ul>
       <ul className="light-list">
         <li className="not-implemented">Share and more...</li>
       </ul>
     </aside>
-  )
-}
+  );
+};
 
 export default ModalAside;

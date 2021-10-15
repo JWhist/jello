@@ -116,7 +116,7 @@ class Popover extends React.Component {
           style={{
             top: this.state.position.top,
             left: this.state.position.left
-          }}
+        }}
         >
           {this.props.children}
         </div>

@@ -21,10 +21,16 @@ function fetchBoardByIdSuccess(board) {
   return { type: types.FETCH_BOARD_BY_ID_SUCCESS, board };
 }
 
-export function fetchBoards() {
-  return function (dispatch) {
+export function fetchBoards(callback) {
+  return function (dispatch, callback) {
     dispatch(fetchBoardsRequest());
-    apiClient.getBoards((data) => dispatch(fetchBoardsSuccess(data.boards)));
+    apiClient.getBoards((data) => {
+      dispatch(fetchBoardsSuccess(data.boards));
+
+      if (callback) {
+        callback(data.boards);
+      }
+    });
   };
 }
 

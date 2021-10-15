@@ -12,29 +12,28 @@ export default function cards(state = [], action) {
     }
     case "FETCH_CARD_SUCCESS": {
       const newState = [...state];
-      let changed = false
-      for (let i=0; i < newState.length; i++) {
+      let changed = false;
+      for (let i = 0; i < newState.length; i++) {
         if (action.card._id === newState[i]._id) {
-          changed = true
+          changed = true;
         }
       }
       if (!changed) {
-        newState.push(action.card)
+        newState.push(action.card);
       }
 
       return newState;
     }
     case "UPDATE_CARD_SUCCESS": {
-      const newState = state.map(card => {
+      const newState = state.map((card) => {
         if (card._id === action.card._id) {
           return action.card;
         }
 
-        return card
-      })
+        return card;
+      });
 
-      console.log(newState);
-      return newState
+      return newState;
     }
     default:
       return state;
