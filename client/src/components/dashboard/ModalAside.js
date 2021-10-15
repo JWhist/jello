@@ -21,7 +21,15 @@ const ModalAside = ({card, setPopover}) => {
         <li className="member-button">
           <i className="person-icon sm-icon"></i>Members
         </li>
-        <li className="label-button">
+        <li className="label-button" onClick={(e) => {
+            const newPopover = {
+              visible: true,
+              type: "labels",
+              attachedTo: e.target
+            }
+
+            setPopover(newPopover)
+          }}>
           <i className="label-icon sm-icon"></i>Labels
         </li>
         <li className="checklist-button">

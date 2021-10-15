@@ -17,6 +17,7 @@ class DueDate extends React.Component {
       field: document.querySelector(".datepicker-select-date input"),
       bound: false,
       container: document.getElementById("calendar-widget"),
+      keyboardInput: false,
       firstDay: 1,
       yearRange: 10,
       defaultDate: date
